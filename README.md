@@ -1,4 +1,4 @@
-# HustleHub+ — Part 1: Secure Backend Foundations
+<img width="1918" height="1018" alt="Postman POST Duplicate Email HH" src="https://github.com/user-attachments/assets/2a5f3f10-7ffa-4805-8038-83d1513a702a" /># HustleHub+ — Part 1: Secure Backend Foundations
 
 **Module:** INSY7314
 **Team:** Quantum Coder
@@ -180,16 +180,61 @@ Requires Node.js 18+ and OpenSSL available on the PATH (Node.js Foundation, n.d.
 
 ### 7.1 Postman Collection
 
-`postman/HustleHub_Part1.postman_collection.json` contains requests demonstrating:
-- Successful registration
-- Duplicate-email registration (expected `409`)
-- Invalid registration input — bad email, weak password (expected `400`)
-- Successful login with JWT returned
-- Login with the wrong password (expected `401`, generic message)
-- Accessing the protected `/profile` route with a valid token (expected `200`)
-- Accessing `/profile` with no token and with a malformed token (expected `401`)
+The collection `postman/HustleHub_Part1.postman_collection.json` contains a comprehensive test suite for all backend endpoints, covering success states and security edge cases. Below is the documentation and corresponding response evidence for each request:
 
-Import the collection into Postman, run it against a locally running instance (`npm start`), and set `rejectUnauthorized: false` / disable SSL certificate verification in Postman settings, since the development certificate is self-signed (Postman, n.d.).
+#### 1. System Health & Routing
+* **Health Check** (`GET /health` — Expected `200 OK`)
+  * Verifies server availability over HTTPS.
+  <img width="1918" height="1020" alt="Postman get health check hh" src="https://github.com/user-attachments/assets/ea8a22dc-8a73-42ad-a849-a36e9d7c7b97" />
+
+* **Unknown Route** (`GET /unknown-endpoint` — Expected `404 Not Found`)
+  * Confirms safe handling of non-existent routes without exposing stack traces.
+  <img width="1918" height="1022" alt="Postman GET Unknown Route" src="https://github.com/user-attachments/assets/a0331a55-1bee-45f6-8786-1836fc5b6eaf" />
+
+---
+
+#### 2. Registration (`POST /api/auth/register`)
+* **Register - Success** (Expected `201 Created`)
+  * Successfully registers a new user with bcrypt password hashing.
+  <img width="1917" height="1022" alt="Postman post register success hh" src="https://github.com/user-attachments/assets/b3d016d5-9672-4149-a077-cf19e2c5daa3" />
+
+* **Register - Duplicate Email** (Expected `409 Conflict`)
+  * Blocks duplicate email registration attempts gracefully.
+  <img width="1918" height="1018" alt="Postman POST Duplicate Email HH" src="https://github.com/user-attachments/assets/7a5e63a3-b90e-45b6-987d-459dd631367e" />
+
+* **Register - Invalid Input** (Expected `400 Bad Request`)
+  * Validation middleware traps weak passwords or malformed email addresses.
+  <img width="1918" height="1022" alt="Postman POST Register Invalid Input HH" src="https://github.com/user-attachments/assets/68ed8eaa-d0c7-4c97-a65f-5b0f679656ee" />
+---
+
+#### 3. Authentication (`POST /api/auth/login`)
+* **Login - Success** (Expected `200 OK`)
+  * Authenticates valid credentials and issues a signed JWT.
+  <img width="1918" height="1020" alt="Postman POST Login Success HH" src="https://github.com/user-attachments/assets/e7b1b22f-b64b-466d-b9cc-9546fc97a278" />
+
+* **Login - Wrong Password** (Expected `401 Unauthorized`)
+  * Returns generic "Invalid credentials" error to prevent user enumeration.
+  <img width="1918" height="1018" alt="Postman POST Login Wrong Password" src="https://github.com/user-attachments/assets/eab727eb-c1e4-41af-a884-ad662abc24b6" />
+
+* **Login - Unknown Email** (Expected `401 Unauthorized`)
+  * Uses the exact same generic error as wrong passwords to defeat timing/enumeration attacks.
+  <img width="1918" height="1022" alt="Postman POST Login Unknown Email HH" src="https://github.com/user-attachments/assets/9ae6129a-2db0-4733-9669-7e2fc23feafc" />
+
+---
+
+#### 4. Protected Routes (`GET /api/auth/profile`)
+* **Protected Route - With Valid Token** (Expected `200 OK`)
+  * Allows access when a valid `Bearer <token>` is supplied in the `Authorization` header.
+  <img width="1918" height="1017" alt="Postman GET Protected Route With Valid Token" src="https://github.com/user-attachments/assets/66f8e047-086c-4258-b00a-98566c58b15d" />
+  <img width="1918" height="1020" alt="Postman GET Protected Route With Valid Token TEST RUN PIC" src="https://github.com/user-attachments/assets/933d07c2-6fb5-4caf-a767-2087cf149f50" />
+
+* **Protected Route - No Token** (Expected `401 Unauthorized`)
+  * Blocks unauthorized access when the `Authorization` header is missing.
+  <img width="1918" height="1022" alt="Postman GET Protected Route No Token" src="https://github.com/user-attachments/assets/9f403b14-c639-4c8b-b516-ae69a05fb49f" />
+
+* **Protected Route - Malformed Token** (Expected `401 Unauthorized`)
+  * Rejects modified, corrupted, or fake JWT signatures.
+  <img width="1918" height="1021" alt="Postman GET Protected Route Malformed Token" src="https://github.com/user-attachments/assets/4909fe60-5388-43d6-a71d-8cded0dfd93f" />
 
 ### 7.2 Manual verification performed
 
@@ -202,11 +247,11 @@ All of the scenarios above were exercised against the running server during deve
 - [x] GitHub repository with modular, documented source code
 - [x] This README documenting architecture, security rationale, and structure
 - [x] Postman collection (`postman/HustleHub_Part1.postman_collection.json`)
-- [ ] Screenshots of API responses (add to `/docs/screenshots` before submission)
-- [ ] Demonstration video link (add below before submission)
+- [x] Screenshots of API responses (add to `/docs/screenshots` before submission)
+- [ ] Demonstration video link
 - [ ] 25+ descriptive commits with evidence of multi-member collaboration
 
-**Demonstration video:** _add link here_
+**Demonstration video:** 
 
 ---
 
