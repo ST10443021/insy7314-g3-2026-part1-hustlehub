@@ -1,4 +1,4 @@
-<img width="1918" height="1018" alt="Postman POST Duplicate Email HH" src="https://github.com/user-attachments/assets/2a5f3f10-7ffa-4805-8038-83d1513a702a" /># HustleHub+ — Part 1: Secure Backend Foundations
+# HustleHub+ — Part 1: Secure Backend Foundations
 
 **Module:** INSY7314
 **Team:** Quantum Coder
