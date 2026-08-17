@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const userModel = require('../models/userModel');
+const jwt = require('jsonwebtoken');
 
 async function registerUser(username, email, password, role)
 {
@@ -52,6 +53,53 @@ async function registerUser(username, email, password, role)
 
 }
 
+async function loginUser(email, password) {
+    const normalisedEmail = email.trim().toLowerCase();
+
+    const user = userModel.findByEmail(normalisedEmail);
+
+    if (!user) {
+        const error = new Error('Invalid email or password');
+        error.statusCode = 401;
+        throw error;
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        const error = new Error('Invalid email or password');
+        error.statusCode = 401;
+        throw error;
+    }
+
+    const token = jwt.sign(
+        {
+            id: user.id,
+            username: user.username,
+            role: user.role
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: process.env.JWT_EXPIRES_IN
+        }
+    );
+
+    const safeUser =
+    {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt
+    };
+
+    return {
+        token,
+        user: safeUser
+    };
+}
+
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 };
