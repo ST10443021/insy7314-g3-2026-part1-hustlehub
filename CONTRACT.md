@@ -51,7 +51,7 @@ By signing below, each member confirms they have read and agree to work within t
 
 | Name | Signature | Date |
 | :--- | :--- | :--- |
-| Blake Derek Godfrey | ______________________ | __________ |
-| Syed Muhammad Hamza Kazmi | ______________________ | __________ |
-| Connor Albertyn | ______________________ | __________ |
-| Muzammil Cassim | ______________________ | __________ |
+| Blake Derek Godfrey | <img width="120" alt="Blake Signature" src="https://github.com/user-attachments/assets/e0a96c20-6bce-41f1-ac62-0376f4260f03" /> | 17/08/2026 |
+| Syed Muhammad Hamza Kazmi | <img width="120" alt="Syed Signature" src="https://github.com/user-attachments/assets/ce8fdec0-9cd1-4526-9e12-7a2454c4d5db" /> | 17/08/2026 |
+| Connor Albertyn | <img width="120" alt="Connor Signature" src="https://github.com/user-attachments/assets/f6f6193e-e819-4179-9f27-ce3c82bdb990" /> | 17/08/2026 |
+| Muzammil Cassim | <img width="120" alt="Muzammil Signature" src="https://github.com/user-attachments/assets/b87c7aa4-cdac-4a01-a6c5-744295d96eb9" /> | 17/08/2026 |
