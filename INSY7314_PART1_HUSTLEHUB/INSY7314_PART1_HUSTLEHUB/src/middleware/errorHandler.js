@@ -9,14 +9,17 @@ function notFoundHandler(req, res, next) {
 }
 
 /**
- * Centralised error handler - the single place responses are generated
+ * * Centralised error handler - the single place responses are generated
  * for thrown/forwarded errors. This guarantees no stack trace, file path,
  * SQL/driver message, or other internal detail ever reaches the client,
- * satisfying the "secure error handling" requirement.
+ * satisfying both OWASP's guidance against verbose error messages
+ * (OWASP, 2021) and the POE's "secure error handling" requirement (IIE, 2026).
  *
  * Errors raised deliberately in the service layer set `err.expose = true`
  * and a safe `err.statusCode` + message; anything else is logged server-side
  * only and reduced to a generic 500 message for the client.
+ * 
+ * Author: MUZAMMIL CASSIM - ST10259792
  */
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {

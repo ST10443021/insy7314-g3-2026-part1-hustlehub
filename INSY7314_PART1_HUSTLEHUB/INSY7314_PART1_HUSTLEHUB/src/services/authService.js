@@ -4,25 +4,32 @@ const config = require('../config/env');
 const userModel = require('../models/userModel');
 
 /**
- * Hash a plain-text password with bcrypt.
- * bcrypt automatically generates and stores a unique salt per password
- * inside the resulting hash, so no separate salt column is required.
+ * Hash a plain-text password with bcrypt, an adaptive hashing algorithm
+ * recommended by OWASP (at a work factor of 12 or higher) for password
+ * storage (OWASP, 2024a). bcrypt automatically generates and stores a
+ * unique salt per password inside the resulting hash, so no separate
+ * salt column is required (OWASP, 2024a).
+ * Author : SYED MUHAMMAD HAMZA KAZMI - ST10443021  
  */
 async function hashPassword(plainTextPassword) {
   return bcrypt.hash(plainTextPassword, config.bcryptSaltRounds);
 }
 
-/** Compare a plain-text password against a stored bcrypt hash. */
+/**
+ * Compare a plain-text password against a stored bcrypt hash using
+ * bcrypt's own constant-time comparison, avoiding a timing side-channel
+ * in the login flow (OWASP, 2024a).
+ */
 async function verifyPassword(plainTextPassword, passwordHash) {
   return bcrypt.compare(plainTextPassword, passwordHash);
 }
 
 /**
- * Issue a signed JWT for an authenticated user.
- * The payload intentionally carries only non-sensitive identifiers
- * (id, role) - never the password hash or email - since JWT payloads
- * are base64-encoded, not encrypted, and can be read by anyone holding
- * the token.
+ * Issue a signed JWT for an authenticated user, as specified in RFC 7519
+ * (Jones, Bradley & Sakimura, 2015). The payload intentionally carries
+ * only non-sensitive identifiers (id, role) - never the password hash or
+ * email - since JWT payloads are base64-encoded, not encrypted, and can
+ * be read by anyone holding the token (Jones, Bradley & Sakimura, 2015).
  */
 function issueToken(user) {
   return jwt.sign(
@@ -31,7 +38,7 @@ function issueToken(user) {
     { expiresIn: config.jwtExpiresIn, issuer: 'hustlehub-plus-api' }
   );
 }
-
+/** Verifies signature, issuer, and expiry on every call, per RFC 7519 (Jones, Bradley & Sakimura, 2015). */
 function verifyToken(token) {
   return jwt.verify(token, config.jwtSecret, { issuer: 'hustlehub-plus-api' });
 }
@@ -53,7 +60,7 @@ async function registerUser({ email, password, role }) {
 async function loginUser({ email, password }) {
   // Generic failure message used for both "no such user" and "wrong password"
   // so the API never confirms or denies whether an email is registered
-  // (this prevents user-enumeration attacks).
+  // (this prevents user-enumeration attacks) (OWASP, 2021; OWASP, 2024a).
   const genericError = () => {
     const err = new Error('Invalid email or password.');
     err.statusCode = 401;

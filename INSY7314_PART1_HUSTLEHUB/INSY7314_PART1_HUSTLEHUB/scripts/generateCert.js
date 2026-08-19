@@ -1,4 +1,5 @@
 // Generates a local, self-signed SSL certificate for development HTTPS.
+// so that TLS is enforced even in local/dev environments (Mozilla, 2026).
 // NOT for production use - production deployments (Part 3) will use a
 // certificate from a trusted CA (e.g. Let's Encrypt) behind the DevSecOps
 // pipeline's reverse proxy / hosting provider.

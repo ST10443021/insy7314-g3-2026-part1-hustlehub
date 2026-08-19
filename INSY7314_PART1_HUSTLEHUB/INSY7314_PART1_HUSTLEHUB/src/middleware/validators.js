@@ -6,6 +6,7 @@ const userModel = require('../models/userModel');
  * into a single, consistent 400 response. Field-level details are safe
  * to return here because they describe the *client's* malformed input,
  * not internal system state.
+ * Author: SYED MUHAMMAD HAMZA KAZMI - ST10443021
  */
 function handleValidationErrors(req, res, next) {
   const errors = validationResult(req);
@@ -19,10 +20,11 @@ function handleValidationErrors(req, res, next) {
   return next();
 }
 
-// Registration input contract.
+// Registration input contract, following OWASP's allow-list-first approach to
+// input validation (OWASP, 2024b).
 // - email: normalised + syntactically validated (also mitigates header/log injection)
-// - password: minimum strength policy (length + character classes)
-// - role: restricted to a fixed allow-list, never trusted blindly from the client
+// - password: minimum strength policy (length + character classes) (OWASP, 2024a)
+// - role: restricted to a fixed allow-list, never trusted blindly from the client (OWASP, 2021)
 const registerValidationRules = [
   body('email')
     .trim()

@@ -5,7 +5,7 @@ const authService = require('../services/authService');
  * promises from bcrypt/jwt) are forwarded to the centralised error
  * handler instead of crashing the process or leaking an unhandled
  * rejection stack trace to the client.
- * Author: SYED KAZMI - ST10443021
+ * Author: BLAKE GODFREY - ST10435415
  */
 const asyncHandler = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
@@ -31,7 +31,7 @@ const login = asyncHandler(async (req, res) => {
   });
 });
 
-/** Example protected endpoint used to demonstrate JWT-guarded routes. */
+/** Example protected endpoint used to demonstrate JWT-guarded routes (Jones, Bradley & Sakimura, 2015). */
 const getProfile = asyncHandler(async (req, res) => {
   res.status(200).json({
     status: 'success',

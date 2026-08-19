@@ -1,10 +1,13 @@
 const authService = require('../services/authService');
 const userModel = require('../models/userModel');
 
+
 /**
  * Protects a route by requiring a valid, non-expired JWT in the
- * Authorization header (Bearer scheme). Runs on every request to a
- * protected endpoint - tokens are never trusted once and cached.
+ * Authorization header (Bearer scheme), per RFC 7519 (Jones, Bradley
+ * & Sakimura, 2015). Runs on every request to a protected endpoint -
+ * tokens are never trusted once and cached (IIE, 2026).
+ * Author: SYED MUHAMMAD HAMZA KAZMI - ST10443021
  */
 function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization || '';
@@ -20,7 +23,9 @@ function requireAuth(req, res, next) {
   try {
     const payload = authService.verifyToken(token);
     const user = userModel.findById(payload.sub);
-
+    // Deliberately generic: do not reveal whether the token was expired,
+    // malformed, or had a bad signature - all are treated as "unauthorised",
+    // avoiding information leakage that could assist an attacker (OWASP, 2021).
     if (!user) {
       return res.status(401).json({ status: 'error', message: 'User for this token no longer exists.' });
     }

@@ -1,6 +1,10 @@
 // Centralised, validated access to environment configuration.
 // Failing fast here means the app never starts in a half-configured,
-// insecure state (e.g. with a missing JWT secret).
+// insecure state (e.g. with a missing JWT secret) (Jones, Bradley & Sakimura, 2015),
+// following Node.js's recommended pattern for environment-driven configuration
+// (Node.js Foundation, n.d.).
+
+// Author : SYED MUHAMMAD HAMZA KAZMI - ST10443021
 require('dotenv').config();
 
 const required = ['JWT_SECRET'];

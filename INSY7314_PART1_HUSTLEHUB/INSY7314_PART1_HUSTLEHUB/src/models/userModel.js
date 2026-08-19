@@ -2,10 +2,12 @@
 //
 // Part 1 of the POE explicitly allows in-memory or file-based storage
 // instead of a real database - a MongoDB-backed model (the "M" in MERN)
-// is introduced in Part 2. This module isolates all data-access logic
-// behind a small function-based interface so that swapping in Mongoose
-// later only requires changes inside this file, not in the controllers
-// or services that consume it.
+// is introduced in Part 2 (MongoDB, Inc., n.d.; IIE, 2026). This module
+// isolates all data-access logic behind a small function-based interface
+// so that swapping in Mongoose later only requires changes inside this
+// file, not in the controllers or services that consume it.
+
+//Author: BLAKE GODFREY - ST10435415
 
 const { randomUUID } = require('crypto');
 
