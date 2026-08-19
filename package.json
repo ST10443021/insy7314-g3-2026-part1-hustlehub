@@ -4,7 +4,8 @@
   "description": "**Module:** INSY7314\r **Team:** Quantum Coder\r **POE Stage:** Part 1 of 3 — Secure backend foundations\r **Team Members:**\r | Name | Student Number |\r | :--- | :--- |\r | **Blake Derek Godfrey** | ST10435415 |\r | **Syed Muhammad Hamza Kazmi** | ST10443021 |\r | **Connor Albertyn** | ST10437293 |\r | **Muzammil Cassim** | ST10259792 |",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
   "homepage": "https://github.com/ST10443021/insy7314-g3-2026-part1-hustlehub#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
-    "jsonwebtoken": "^9.0.3"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
