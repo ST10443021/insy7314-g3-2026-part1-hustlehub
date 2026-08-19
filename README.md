@@ -11,6 +11,7 @@
 | **Connor Albertyn** | ST10437293 |
 | **Muzammil Cassim** | ST10259792 |
 
+**Demonstration video:** https://youtu.be/UGyVl3xy8iM
 ---
 
 ## 1. System Overview
@@ -248,10 +249,10 @@ All of the scenarios above were exercised against the running server during deve
 - [x] This README documenting architecture, security rationale, and structure
 - [x] Postman collection (`postman/HustleHub_Part1.postman_collection.json`)
 - [x] Screenshots of API responses (add to `/docs/screenshots` before submission)
-- [ ] Demonstration video link
-- [ ] 25+ descriptive commits with evidence of multi-member collaboration
+- [x] Demonstration video link
+- [x] 25+ descriptive commits with evidence of multi-member collaboration
 
-**Demonstration video:** 
+
 
 ---
 
