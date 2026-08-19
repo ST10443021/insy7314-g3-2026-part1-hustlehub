@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">insy7314_part1_hustlehub</PackageJsonName>
+    <PackageJsonVersion Condition="$(PackageJsonVersion) == ''">1.0.0</PackageJsonVersion>
+    <PackageJsonDescription Condition="$(PackageJsonDescription) == ''">HustleHub+ Part 1 - Secure backend foundations</PackageJsonDescription>
+    <PackageJsonMain Condition="$(PackageJsonMain) == ''">src/server.js</PackageJsonMain>
+    <PackageJsonScriptsStart Condition="$(PackageJsonScriptsStart) == ''">node src/server.js</PackageJsonScriptsStart>
+    <PackageJsonScriptsGenCert Condition="$(PackageJsonScriptsGenCert) == ''">node scripts/generateCert.js</PackageJsonScriptsGenCert>
+    <PackageJsonScriptsTest Condition="$(PackageJsonScriptsTest) == ''">echo "Error: no test specified" &amp;&amp; exit 1</PackageJsonScriptsTest>
+    <PackageJsonKeywords Condition="$(PackageJsonKeywords) == ''">[]</PackageJsonKeywords>
+    <PackageJsonAuthor Condition="$(PackageJsonAuthor) == ''"></PackageJsonAuthor>
+    <PackageJsonLicense Condition="$(PackageJsonLicense) == ''">ISC</PackageJsonLicense>
+    <PackageJsonType Condition="$(PackageJsonType) == ''">commonjs</PackageJsonType>
+    <PackageJsonDependenciesBcryptjs Condition="$(PackageJsonDependenciesBcryptjs) == ''">^2.4.3</PackageJsonDependenciesBcryptjs>
+    <PackageJsonDependenciesCors Condition="$(PackageJsonDependenciesCors) == ''">^2.8.5</PackageJsonDependenciesCors>
+    <PackageJsonDependenciesDotenv Condition="$(PackageJsonDependenciesDotenv) == ''">^16.4.5</PackageJsonDependenciesDotenv>
+    <PackageJsonDependenciesExpress Condition="$(PackageJsonDependenciesExpress) == ''">^4.19.2</PackageJsonDependenciesExpress>
+    <PackageJsonDependenciesExpressMongoSanitize Condition="$(PackageJsonDependenciesExpressMongoSanitize) == ''">^2.2.0</PackageJsonDependenciesExpressMongoSanitize>
+    <PackageJsonDependenciesExpressRateLimit Condition="$(PackageJsonDependenciesExpressRateLimit) == ''">^7.4.0</PackageJsonDependenciesExpressRateLimit>
+    <PackageJsonDependenciesExpressValidator Condition="$(PackageJsonDependenciesExpressValidator) == ''">^7.2.0</PackageJsonDependenciesExpressValidator>
+    <PackageJsonDependenciesHelmet Condition="$(PackageJsonDependenciesHelmet) == ''">^7.1.0</PackageJsonDependenciesHelmet>
+    <PackageJsonDependenciesJsonwebtoken Condition="$(PackageJsonDependenciesJsonwebtoken) == ''">^9.0.2</PackageJsonDependenciesJsonwebtoken>
+    <PackageJsonDependenciesMorgan Condition="$(PackageJsonDependenciesMorgan) == ''">^1.10.0</PackageJsonDependenciesMorgan>
+    <PackageJsonDependenciesXssClean Condition="$(PackageJsonDependenciesXssClean) == ''">^0.1.4</PackageJsonDependenciesXssClean>
+    <PackageJsonDevdependenciesTypesNode Condition="$(PackageJsonDevdependenciesTypesNode) == ''">^26.2.0</PackageJsonDevdependenciesTypesNode>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^10.8.1</PackageJsonDevdependenciesEslint>
+    <PackageJsonDevdependenciesTypescript Condition="$(PackageJsonDevdependenciesTypescript) == ''">^7.0.2</PackageJsonDevdependenciesTypescript>
+  </PropertyGroup>
+</Project>
