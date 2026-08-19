@@ -1,76 +1,52 @@
-/**
- * Temporary in-memory user storage used for Part 1 of HustleHub+.
- *
- * A permanent database is not required during this stage of the
- * project, so users are stored in memory while the secure backend
- * authentication foundation is developed.
- *
- * This model is responsible only for data storage and retrieval.
- * Authentication logic such as password hashing, password comparison,
- * and JWT generation remains in the service layer.
- *
- * Author: BLAKE GODFREY - ST10435415
- */
+// In-memory user "store".
+//
+// Part 1 of the POE explicitly allows in-memory or file-based storage
+// instead of a real database - a MongoDB-backed model (the "M" in MERN)
+// is introduced in Part 2. This module isolates all data-access logic
+// behind a small function-based interface so that swapping in Mongoose
+// later only requires changes inside this file, not in the controllers
+// or services that consume it.
 
-// Temporary in-memory user storage for Part 1.
-// MongoDB/database persistence will be introduced in a later stage.
+const { randomUUID } = require('crypto');
+
+/** @type {Array<{id: string, email: string, passwordHash: string, role: string, createdAt: string}>} */
 const users = [];
 
-/**
- * Adds a new user record to the in-memory user collection.
- * The service layer is responsible for ensuring that the password
- * has already been securely hashed before this function is called.
- *
- * Author: BLAKE GODFREY - ST10435415
- */
-function createUser(user) {
-    users.push(user);
-    return user;
-}
+const VALID_ROLES = ['client', 'freelancer', 'admin'];
 
-/**
- * Searches for a user using their email address.
- * This helper is used during registration to detect duplicate emails
- * and during login to locate the account being authenticated.
- *
- * Returns undefined when no matching user exists.
- *
- * Author: BLAKE GODFREY - ST10435415
- */
 function findByEmail(email) {
-    return users.find(user => user.email === email);
+  return users.find((u) => u.email.toLowerCase() === String(email).toLowerCase());
 }
 
-/**
- * Searches for a user using their username.
- * This allows the registration service to prevent duplicate usernames
- * from being created.
- *
- * Returns undefined when no matching user exists.
- *
- * Author: BLAKE GODFREY - ST10435415
- */
-function findByUsername(username) {
-    return users.find(user => user.username === username);
-}
-
-/**
- * Searches for a user using their unique ID.
- * This is primarily used by the protected profile functionality after
- * the JWT middleware has authenticated the request and supplied the
- * user's ID through req.user.
- *
- * Returns undefined when no matching user exists.
- *
- * Author: BLAKE GODFREY - ST10435415
- */
 function findById(id) {
-    return users.find(user => user.id === id);
+  return users.find((u) => u.id === id);
+}
+
+function create({ email, passwordHash, role = 'client' }) {
+  const user = {
+    id: randomUUID(),
+    email: email.toLowerCase(),
+    passwordHash,
+    role: VALID_ROLES.includes(role) ? role : 'client',
+    createdAt: new Date().toISOString(),
+  };
+  users.push(user);
+  return user;
+}
+
+/** Strip sensitive fields before a user object ever leaves the service layer. */
+function toPublicUser(user) {
+  if (!user) return null;
+  const { id, email, role, createdAt } = user;
+  return { id, email, role, createdAt };
 }
 
 module.exports = {
-    createUser,
-    findByEmail,
-    findByUsername,
-    findById
+  VALID_ROLES,
+  findByEmail,
+  findById,
+  create,
+  toPublicUser,
+  // exposed only for test scaffolding / seeding
+  _store: users,
 };
