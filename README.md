@@ -12,6 +12,7 @@
 | **Muzammil Cassim** | ST10259792 |
 
 **Demonstration video:** https://youtu.be/UGyVl3xy8iM
+
 ---
 
 ## 1. System Overview
