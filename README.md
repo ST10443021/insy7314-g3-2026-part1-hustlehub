@@ -38,39 +38,8 @@ Consequently, the following report presents the first part in totality and as an
 
 The figure below represents the complete MERN Target Architecture with its corresponding boundaries of trust and system at each tier level, as well as the exact position in the request flow at which each Part 1 Security Control is implemented (MongoDB, Inc., n.d.).
 React and MongoDB represent forward-thinking boundaries for Part 2 and Part 3, while Part 1 completely covers the implementation of all the controls inside the application tier and data tier boxes (IIE, 2026).
-```mermaid
-flowchart TB
-    subgraph ClientSide["CLIENT TIER (untrusted boundary)"]
-        Browser["React SPA / Postman\n(Part 2 delivers the React client)"]
-    end
 
-    subgraph Network["NETWORK BOUNDARY"]
-        TLS["HTTPS / TLS 1.2+\nSelf-signed cert (dev)"]
-    end
-
-    subgraph Server["APPLICATION TIER — Node.js + Express (trusted boundary)"]
-        direction TB
-        MW1["Security middleware\nhelmet, cors, rate-limit,\nmongo-sanitize, xss-clean"]
-        Validate["express-validator\nInput validation layer"]
-        Routes["Routes\n/api/auth/register\n/api/auth/login\n/api/auth/profile"]
-        AuthMW["JWT Auth Middleware\n(protects /profile + future routes)"]
-        Controllers["Controllers\n(HTTP <-> service translation)"]
-        Services["Services\nbcrypt hashing, JWT sign/verify,\nbusiness rules"]
-        ErrorMW["Centralised Error Handler\n(strips stack traces/internal detail)"]
-    end
-
-    subgraph Data["DATA TIER (trusted boundary)"]
-        Store["In-memory user store\n(Part 1) → MongoDB (Part 2)"]
-    end
-
-    Browser -->|"HTTPS request"| TLS --> MW1 --> Validate --> Routes
-    Routes --> AuthMW --> Controllers
-    Routes --> Controllers
-    Controllers --> Services --> Store
-    Controllers -.->|"on error"| ErrorMW
-    ErrorMW -.->|"safe JSON error"| TLS
-    Controllers -->|"JSON response + JWT"| TLS --> Browser
-```
+<img width="1500" height="1220" alt="mern_architecture" src="https://github.com/user-attachments/assets/f0687ed4-9cc3-4e61-a760-54243a5b915a" />
 
 The diagram reveals the security boundaries, which include the client layer as being untrusted, not having access to any JWT secrets or password hashes; network layer is the boundary for TLS termination, which leaves the confidentiality and integrity vulnerable during transport; and the application layer processes all requests through a standardised pipeline that includes security headers, rate limiting, sanitisation, validation, authentication, business logic, and unified error handling (OWASP, 2021).
 Such a pipeline demonstrates "defence in depth", which is the principle advised by OWASP, where a single control is not used for security (OWASP, 2021).
