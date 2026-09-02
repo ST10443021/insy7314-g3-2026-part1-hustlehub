@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # HustleHub+ — Part 1: Secure Backend Foundations
 
 **Module:** INSY7314
@@ -245,3 +246,8 @@ OWASP, 2024b. *Input Validation Cheat Sheet*. [online] OWASP Cheat Sheet Series.
 Postman, n.d. *Postman Learning Center*. [online] Available at: https://learning.postman.com/ [Accessed 10 August 2026].
 
 The Independent Institute of Education (IIE), 2026. *INSY7314 Portfolio of Evidence Part 1: Secure Foundations — HustleHub+*. Module brief. Johannesburg: The Independent Institute of Education.
+=======
+# insy7314-g1-insy7314-part1-st10443021
+
+Read Me File
+>>>>>>> source-repo/main
